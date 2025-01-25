@@ -228,31 +228,59 @@
 
         // Translate Text
         document.getElementById('translateBtn').addEventListener('click', () => {
-            const inputText = document.getElementById('inputText').value;
+            const inputText = document.getElementById('inputText').value.trim();
             const fromLanguage = document.getElementById('fromLanguage').value;
             const toLanguage = document.getElementById('toLanguage').value;
 
-            if (inputText.trim() === '') {
+            if (!inputText) {
                 alert('Please enter text to translate.');
                 return;
             }
 
             // Example Google Translate API call (replace with actual API)
-            fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${fromLanguage}&tl=${toLanguage}&dt=t&q=${encodeURIComponent(inputText)}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('outputText').value = data[0][0][0];
+            const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${fromLanguage}&tl=${toLanguage}&dt=t&q=${encodeURIComponent(inputText)}`;
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not OK');
+                    }
+                    return response.json();
                 })
-                .catch(() => {
-                    alert('Error occurred while translating.');
+                .then(data => {
+                    const translatedText = data[0][0][0];
+                    document.getElementById('outputText').value = translatedText;
+                })
+                .catch(error => {
+                    console.error('Error occurred while translating:', error);
+                    alert('Translation failed. Please try again later.');
                 });
         });
 
         // Play Translation
         document.getElementById('speakTranslationBtn').addEventListener('click', () => {
-            const translation = document.getElementById('outputText').value;
+            const translation = document.getElementById('outputText').value.trim();
+
+            if (!translation) {
+                alert('There is no translation to play.');
+                return;
+            }
+
             const utterance = new SpeechSynthesisUtterance(translation);
-            speechSynthesis.speak(utterance);
+            const toLanguage = document.getElementById('toLanguage').value;
+            utterance.lang = toLanguage;
+
+            // Optional settings
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            try {
+                speechSynthesis.speak(utterance);
+            } catch (error) {
+                console.error('Error while trying to play the translation:', error);
+                alert('Unable to play the translation.');
+            }
         });
     </script>
 </body>
