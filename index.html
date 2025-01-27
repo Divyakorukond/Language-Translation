@@ -246,9 +246,15 @@
         // Start Speech Recognition when clicking the Speak button
         document.getElementById('startSpeechBtn').addEventListener('click', () => {
             const fromLanguage = document.getElementById('fromLanguage').value;
+            console.log(`Selected language for speech recognition: ${fromLanguage}`);
             recognition.lang = fromLanguage;  // Set the language based on user's selection
             recognition.start();
         });
+
+        recognition.onerror = function(event) {
+        console.error('Speech recognition error:', event.error);
+        alert('An error occurred with speech recognition. Please try again.');
+            };
 
         recognition.onresult = function(event) {
             const speechText = event.results[0][0].transcript;
