@@ -32,12 +32,13 @@
 
         .translator-section {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
         }
 
         .translator-section select {
+            width: 45%;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
@@ -56,12 +57,12 @@
 
         .buttons {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 20px;
         }
 
-        .button {
+        .translate-button, .speech-button, .speak-button {
             background-color: #007BFF;
             color: white;
             padding: 10px 20px;
@@ -71,7 +72,7 @@
             font-size: 16px;
         }
 
-        .button:hover {
+        .translate-button:hover, .speech-button:hover, .speak-button:hover {
             background-color: #0056b3;
         }
 
@@ -79,18 +80,37 @@
             margin-top: 20px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .translator-container {
                 padding: 15px;
-                box-shadow: none;
+                width: 100%;
             }
 
-            .translator-section select,
-            .text-box {
-                font-size: 14px;
+            .translator-section {
+                flex-direction: column;
             }
+
+            .translator-section select {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .text-box {
+                min-height: 60px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .text-box {
+                word-wrap: break-word;
+            }
+
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/simple-keyboard/build/css/index.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/simple-keyboard/build/index.js"></script>
 </head>
 <body>
     <div class="translator-container">
@@ -99,30 +119,118 @@
         <!-- Language Selection -->
         <div class="translator-section">
             <select id="fromLanguage">
+                <option value="af">Afrikaans</option>
+                <option value="sq">Albanian</option>
+                <option value="ar">Arabic</option>
+                <option value="bn">Bengali</option>
+                <option value="bs">Bosnian</option>
+                <option value="bg">Bulgarian</option>
+                <option value="ca">Catalan</option>
+                <option value="hr">Croatian</option>
+                <option value="cs">Czech</option>
+                <option value="da">Danish</option>
+                <option value="nl">Dutch</option>
                 <option value="en">English</option>
-                <option value="te">Telugu</option>
-                <option value="hi">Hindi</option>
+                <option value="et">Estonian</option>
+                <option value="tl">Filipino</option>
+                <option value="fi">Finnish</option>
                 <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="el">Greek</option>
+                <option value="gu">Gujarati</option>
+                <option value="hi">Hindi</option>
+                <option value="hu">Hungarian</option>
+                <option value="is">Icelandic</option>
+                <option value="id">Indonesian</option>
+                <option value="it">Italian</option>
+                <option value="ja">Japanese</option>
+                <option value="jw">Javanese</option>
+                <option value="ko">Korean</option>
+                <option value="la">Latin</option>
+                <option value="mr">Marathi</option>
+                <option value="pl">Polish</option>
+                <option value="pt">Portuguese</option>
+                <option value="ro">Romanian</option>
+                <option value="ru">Russian</option>
+                <option value="sr">Serbian</option>
+                <option value="si">Sinhala</option>
                 <option value="es">Spanish</option>
-                <!-- Add more languages as needed -->
+                <option value="su">Sundanese</option>
+                <option value="sw">Swahili</option>
+                <option value="sv">Swedish</option>
+                <option value="ta">Tamil</option>
+                <option value="te">Telugu</option>
+                <option value="th">Thai</option>
+                <option value="tr">Turkish</option>
+                <option value="uk">Ukrainian</option>
+                <option value="ur">Urdu</option>
+                <option value="vi">Vietnamese</option>
+                <option value="cy">Welsh</option>
+                <option value="xh">Xhosa</option>
+                <option value="yi">Yiddish</option>
+                <option value="zu">Zulu</option>
             </select>
 
             <select id="toLanguage">
+                <option value="af">Afrikaans</option>
+                <option value="sq">Albanian</option>
+                <option value="ar">Arabic</option>
+                <option value="bn">Bengali</option>
+                <option value="bs">Bosnian</option>
+                <option value="bg">Bulgarian</option>
+                <option value="ca">Catalan</option>
+                <option value="hr">Croatian</option>
+                <option value="cs">Czech</option>
+                <option value="da">Danish</option>
+                <option value="nl">Dutch</option>
                 <option value="en">English</option>
-                <option value="te">Telugu</option>
-                <option value="hi">Hindi</option>
+                <option value="et">Estonian</option>
+                <option value="tl">Filipino</option>
+                <option value="fi">Finnish</option>
                 <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="el">Greek</option>
+                <option value="gu">Gujarati</option>
+                <option value="hi">Hindi</option>
+                <option value="hu">Hungarian</option>
+                <option value="is">Icelandic</option>
+                <option value="id">Indonesian</option>
+                <option value="it">Italian</option>
+                <option value="ja">Japanese</option>
+                <option value="jw">Javanese</option>
+                <option value="ko">Korean</option>
+                <option value="la">Latin</option>
+                <option value="mr">Marathi</option>
+                <option value="pl">Polish</option>
+                <option value="pt">Portuguese</option>
+                <option value="ro">Romanian</option>
+                <option value="ru">Russian</option>
+                <option value="sr">Serbian</option>
+                <option value="si">Sinhala</option>
                 <option value="es">Spanish</option>
-                <!-- Add more languages as needed -->
+                <option value="su">Sundanese</option>
+                <option value="sw">Swahili</option>
+                <option value="sv">Swedish</option>
+                <option value="ta">Tamil</option>
+                <option value="te">Telugu</option>
+                <option value="th">Thai</option>
+                <option value="tr">Turkish</option>
+                <option value="uk">Ukrainian</option>
+                <option value="ur">Urdu</option>
+                <option value="vi">Vietnamese</option>
+                <option value="cy">Welsh</option>
+                <option value="xh">Xhosa</option>
+                <option value="yi">Yiddish</option>
+                <option value="zu">Zulu</option>
             </select>
         </div>
 
         <textarea id="inputText" class="text-box" placeholder="Enter text here..."></textarea>
 
         <div class="buttons">
-            <button class="button" id="startSpeechBtn">🎙️ Speak</button>
-            <button class="button" id="translateBtn">Translate</button>
-            <button class="button" id="speakTranslationBtn">🔊 Play Translation</button>
+            <button class="speech-button" id="startSpeechBtn">🎙️ Speak</button>
+            <button class="translate-button" id="translateBtn">Translate</button>
+            <button class="speak-button" id="speakTranslationBtn">🔊 Play Translation</button>
         </div>
 
         <div class="output">
@@ -133,21 +241,18 @@
     <script>
         // Speech Recognition
         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        
+        recognition.lang = 'en-US'; // Default to English
+
         // Start Speech Recognition when clicking the Speak button
         document.getElementById('startSpeechBtn').addEventListener('click', () => {
             const fromLanguage = document.getElementById('fromLanguage').value;
-            recognition.lang = fromLanguage;  // Set recognition language dynamically
+            recognition.lang = fromLanguage;  // Set the language based on user's selection
             recognition.start();
         });
 
-        recognition.onresult = function (event) {
+        recognition.onresult = function(event) {
             const speechText = event.results[0][0].transcript;
             document.getElementById('inputText').value = speechText;
-        };
-
-        recognition.onerror = function (event) {
-            alert('Speech recognition error: ' + event.error);
         };
 
         // Translate Text
@@ -161,12 +266,13 @@
                 return;
             }
 
+            // Example Google Translate API call (replace with actual API)
             const apiUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${fromLanguage}&tl=${toLanguage}&dt=t&q=${encodeURIComponent(inputText)}`;
 
             fetch(apiUrl)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Translation API request failed');
+                        throw new Error('Network response was not OK');
                     }
                     return response.json();
                 })
@@ -175,14 +281,19 @@
                     document.getElementById('outputText').value = translatedText;
                 })
                 .catch(error => {
-                    console.error('Error during translation:', error);
-                    alert('Translation failed. Please try again.');
+                    console.error('Error occurred while translating:', error);
+                    alert('Translation failed. Please try again later.');
                 });
         });
 
         // Play Translation
         document.getElementById('speakTranslationBtn').addEventListener('click', () => {
             const translation = document.getElementById('outputText').value.trim();
+            if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+    alert('Speech Recognition is not supported in your browser.');
+    }
+
+
             if (!translation) {
                 alert('There is no translation to play.');
                 return;
@@ -192,7 +303,17 @@
             const toLanguage = document.getElementById('toLanguage').value;
             utterance.lang = toLanguage;
 
-            speechSynthesis.speak(utterance);
+            // Optional settings
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            try {
+                speechSynthesis.speak(utterance);
+            } catch (error) {
+                console.error('Error while trying to play the translation:', error);
+                alert('Unable to play the translation.');
+            }
         });
     </script>
 </body>
