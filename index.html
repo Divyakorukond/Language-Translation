@@ -241,7 +241,7 @@
     <script>
         // Speech Recognition
         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.lang = 'en-US'; // Default to English
+        recognition.lang = fromLanguage; // Default to English
 
         // Start Speech Recognition when clicking the Speak button
         document.getElementById('startSpeechBtn').addEventListener('click', () => {
