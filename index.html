@@ -101,20 +101,27 @@
         }
 
         @media (max-width: 600px) {
-            .language-group {
-            flex-direction: column;
-        }
-        
-        .swap-button {
-            padding: 10px;
-            font-size: 18px;
-            width: 50px;
-        }
+                .language-group {
+                flex-direction: column;
+            }
+            
+            .swap-button {
+                padding: 10px;
+                font-size: 18px;
+                width: 50px;
+                color: transparent;
+                position: relative;
+            }
 
-        /* Change button text to ↑↓ on mobile */
-        .swap-button::before {
-            content: "↑↓";
-        }
+            /* Change button text to ↑↓ on mobile */
+            .swap-button::before {
+                content: "↑↓";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                color: white;
+            }
             .translator-container {
                 padding: 15px;
                 width: 100%;
