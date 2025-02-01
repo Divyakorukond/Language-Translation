@@ -15,6 +15,26 @@
             align-items: center;
             height: 100vh;
         }
+        .language-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .swap-button {
+        background: #007BFF;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .swap-button:hover {
+        background: #0056b3;
+    }
 
         .translator-container {
             background: #fff;
@@ -81,6 +101,20 @@
         }
 
         @media (max-width: 600px) {
+            .language-group {
+            flex-direction: column;
+        }
+        
+        .swap-button {
+            padding: 10px;
+            font-size: 18px;
+            width: 50px;
+        }
+
+        /* Change button text to ↑↓ on mobile */
+        .swap-button::after {
+            content: "↑↓";
+        }
             .translator-container {
                 padding: 15px;
                 width: 100%;
@@ -170,7 +204,8 @@
                 <option value="yi">Yiddish</option>
                 <option value="zu">Zulu</option>
             </select>
-
+            <button id="swapLanguages" class="swap-button">↔</button>
+        
             <select id="toLanguage">
                 <option value="af">Afrikaans</option>
                 <option value="sq">Albanian</option>
@@ -239,6 +274,13 @@
     </div>
 
     <script>
+        document.getElementById('swapLanguages').addEventListener('click', () => {
+        let fromLang = document.getElementById('fromLanguage');
+        let toLang = document.getElementById('toLanguage');
+
+        // Swap the selected values
+        [fromLang.value, toLang.value] = [toLang.value, fromLang.value];
+    });
         // Speech Recognition
         const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
         recognition.lang = fromLanguage; // Default to English
